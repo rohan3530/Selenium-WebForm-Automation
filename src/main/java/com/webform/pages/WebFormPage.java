@@ -24,9 +24,17 @@ public class WebFormPage {
     public void enterText(String text) {
         driver.findElement(textInput).sendKeys(text);
     }
+     // Get actual text field value
+    public String getTextFieldValue() {
+        return driver.findElement(textInput).getAttribute("value");
+    }
 
     public void enterPassword(String password) {
         driver.findElement(passwordInput).sendKeys(password);
+    }
+    // Get actual text field value
+    public String getPassFieldValue() {
+        return driver.findElement(passwordInput).getAttribute("value");
     }
 
     public void enterTextArea(String text)

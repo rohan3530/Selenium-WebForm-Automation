@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import com.webform.base.BaseTest;
 import com.webform.pages.WebFormPage;
 import com.webform.utils.ExcelUtils;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
+import org.openqa.selenium.By;
 
 public class WebFormTest extends BaseTest {
     // For passing from the Excel !!
@@ -31,6 +34,8 @@ public class WebFormTest extends BaseTest {
      @Test(dataProvider = "loginFormData")
     public void verifyTextAndPasswordInput(String text, String password,String textarea) {
 
+        SoftAssert softAssert = new SoftAssert();
+
         WebFormPage webFormPage = new WebFormPage(driver);
          System.out.println("Text: " + text);
          System.out.println("Password: " + password);
@@ -39,6 +44,20 @@ public class WebFormTest extends BaseTest {
         webFormPage.enterText(text);
         webFormPage.enterPassword(password);
         webFormPage.enterTextArea(textarea);
+
+        softAssert.assertEquals(
+        webFormPage.getTextFieldValue(),
+        text,
+        "Text field value does not match!"
+    );
+
+      softAssert.assertEquals(
+        webFormPage.getPassFieldValue(),
+        password,
+        "Password field is not getting matched"
+    );
+
+       softAssert.assertAll();
 
     }
 }
