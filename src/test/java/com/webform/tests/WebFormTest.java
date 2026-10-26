@@ -32,7 +32,7 @@ public class WebFormTest extends BaseTest {
     // }
 
      @Test(dataProvider = "loginFormData")
-    public void verifyTextAndPasswordInput(String text, String password,String textarea) {
+    public void verifyTextAndPasswordInput(String text, String password,String textarea, String dropdownOption) {
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -44,6 +44,9 @@ public class WebFormTest extends BaseTest {
         webFormPage.enterText(text);
         webFormPage.enterPassword(password);
         webFormPage.enterTextArea(textarea);
+        //webFormPage.selectDropdownByVisibleText("Two"); // Hardcoded selection
+        webFormPage.selectDropdownByVisibleText(dropdownOption);
+        
 
         softAssert.assertEquals(
         webFormPage.getTextFieldValue(),
@@ -56,6 +59,18 @@ public class WebFormTest extends BaseTest {
         password,
         "Password field is not getting matched"
     );
+
+    softAssert.assertEquals(
+        webFormPage.getTextArea(),
+        textarea,
+        "Wrong Text is provided"
+    );
+
+    softAssert.assertEquals(
+    webFormPage.getSelectedDropdownOption(),
+    dropdownOption,
+    "Incorrect dropdown option selected!"
+);
 
        softAssert.assertAll();
 

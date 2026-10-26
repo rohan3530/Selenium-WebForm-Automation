@@ -4,6 +4,7 @@ package com.webform.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class WebFormPage {
 
@@ -18,6 +19,7 @@ public class WebFormPage {
     private By textInput = By.name("my-text");
     private By passwordInput = By.name("my-password");
     private By textArea= By.name("my-textarea");
+    private By dropdown = By.name("my-select");
     // private By submitButton = By.cssSelector("button");
 
     // Page actions
@@ -41,6 +43,30 @@ public class WebFormPage {
     {
         driver.findElement(textArea).sendKeys(text);
     }
+
+    public String getTextArea(){
+        return driver.findElement(textArea).getAttribute("value");
+    }
+
+    public void selectDropdownByVisibleText(String option) {
+
+    WebElement element = driver.findElement(dropdown);
+
+    Select select = new Select(element);
+
+    select.selectByVisibleText(option);
+   
+}
+
+// Get the currently selected dropdown option
+public String getSelectedDropdownOption() {
+
+    WebElement element = driver.findElement(dropdown);
+
+    Select select = new Select(element);
+
+    return select.getFirstSelectedOption().getText();
+}
 
     // public void clickSubmit() {
     //     driver.findElement(submitButton).click();
